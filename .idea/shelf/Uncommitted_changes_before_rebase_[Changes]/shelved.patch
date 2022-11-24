@@ -1,0 +1,20 @@
+Index: work-1/src/test/java/tests/PracticeFormTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package tests;\r\n\r\nimport com.codeborne.selenide.Configuration;\r\nimport org.junit.jupiter.api.BeforeAll;\r\nimport org.junit.jupiter.api.Test;\r\n\r\nimport java.io.File;\r\n\r\nimport static com.codeborne.selenide.Condition.text;\r\nimport static com.codeborne.selenide.Selectors.byText;\r\nimport static com.codeborne.selenide.Selenide.*;\r\n\r\n\r\n// только success test\r\npublic class PracticeFormTest {\r\n\r\n    @BeforeAll\r\n    static void beforeAll() {\r\n        Configuration.baseUrl = \"https://demoqa.com\";\r\n        Configuration.browserSize = \"1920x1080\";\r\n        // я просто скроллил до нужного элемента .scrollTo(), но сайт кривой и на мелком экране внизу баннер закрывает кнопку submit\r\n        // поэтому scrollTo есть в коде\r\n    }\r\n\r\n    @Test\r\n    void successFillTest() {\r\n        open(\"/automation-practice-form\");\r\n        $(\".main-header\").shouldHave(text(\"Practice Form\"));\r\n\r\n        $(\"#firstName\").setValue(\"Alex\");\r\n        $(\"#lastName\").setValue(\"Solo\");\r\n        $(\"#userEmail\").setValue(\"solo@awg.ru\");\r\n        $(\"[for='gender-radio-1']\").click(); // я здесь пытался использовать selectRadio(String value), но не получилось. Ещё я не понял какое значение надо ставить\r\n       // $(byText(\"Male\")).click(); либо через текст\r\n        $(\"#userNumber\").setValue(\"9999999999\");\r\n        $(\"#dateOfBirthInput\").click();\r\n        $(\".react-datepicker__year-select\").selectOptionByValue(\"2000\");\r\n        $(\".react-datepicker__month-select\").selectOptionByValue(\"9\");\r\n        $(\".react-datepicker__day.react-datepicker__day--006\").click();\r\n        $(\"#subjectsInput\").setValue(\"Computer Science\").pressEnter();\r\n        $(byText(\"Reading\")).click();\r\n        $(byText(\"Music\")).click();\r\n        File testFile = new File(\"src/test/resources/testFile.jpg\");\r\n        $(\"#uploadPicture\").uploadFile(testFile);\r\n        $(\"#currentAddress\").setValue(\"City Street House\");\r\n        $(\"#state\").scrollTo().click();\r\n        $(\"#react-select-3-option-2\").click(); //либо через текст $(byText(\"Haryana\")).click(); но я хотел уйти от выбора по тексту\r\n        $(\"#city\").click();\r\n        $(\"#react-select-4-option-0\").click();\r\n        $(\"#submit\").scrollTo().click();\r\n        $(\".table-responsive\").shouldHave(text(\"Alex\"), text(\"Solo\"),\r\n                text(\"solo@awg.ru\"), text(\"9999999999\"), text(\"06 October,2000\"), text(\"testFile.jpg\"),\r\n                text(\"City Street House\"), text(\"Haryana Karnal\"));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/work-1/src/test/java/tests/PracticeFormTest.java b/work-1/src/test/java/tests/PracticeFormTest.java
+--- a/work-1/src/test/java/tests/PracticeFormTest.java	(revision 216b6dd03e2fe3bfbd9b0902fd5dde0ce2e338f6)
++++ b/work-1/src/test/java/tests/PracticeFormTest.java	(date 1669280248015)
+@@ -8,7 +8,8 @@
+ 
+ import static com.codeborne.selenide.Condition.text;
+ import static com.codeborne.selenide.Selectors.byText;
+-import static com.codeborne.selenide.Selenide.*;
++import static com.codeborne.selenide.Selenide.$;
++import static com.codeborne.selenide.Selenide.open;
+ 
+ 
+ // только success test
